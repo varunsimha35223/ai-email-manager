@@ -1,9 +1,20 @@
+import { useState } from 'react'
 import { getAuthUrl } from '../api/client'
 
 export default function Home() {
+  const [loading, setLoading] = useState(null)
+  const [error, setError] = useState(null)
+
   const connect = async (provider) => {
-    const url = await getAuthUrl(provider)
-    window.location.href = url
+    setLoading(provider)
+    setError(null)
+    try {
+      const url = await getAuthUrl(provider)
+      window.location.href = url
+    } catch (e) {
+      setError('Could not connect. The server may be waking up — please try again in 30 seconds.')
+      setLoading(null)
+    }
   }
 
   return (
@@ -45,20 +56,28 @@ export default function Home() {
         <div className="space-y-3">
           <button
             onClick={() => connect('gmail')}
-            className="w-full flex items-center justify-center gap-3 bg-white text-gray-900 font-semibold py-3.5 px-6 rounded-xl hover:bg-gray-100 active:scale-95 transition-all shadow-lg shadow-white/5"
+            disabled={!!loading}
+            className="w-full flex items-center justify-center gap-3 bg-white text-gray-900 font-semibold py-3.5 px-6 rounded-xl hover:bg-gray-100 active:scale-95 transition-all shadow-lg shadow-white/5 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <img src="https://www.gstatic.com/images/branding/product/1x/gmail_2020q4_32dp.png" className="w-5 h-5" alt="Gmail" />
-            Continue with Gmail
+            {loading === 'gmail' ? 'Connecting... (may take 30s)' : 'Continue with Gmail'}
           </button>
 
           <button
             onClick={() => connect('outlook')}
-            className="w-full flex items-center justify-center gap-3 bg-blue-600 text-white font-semibold py-3.5 px-6 rounded-xl hover:bg-blue-700 active:scale-95 transition-all shadow-lg shadow-blue-600/20"
+            disabled={!!loading}
+            className="w-full flex items-center justify-center gap-3 bg-blue-600 text-white font-semibold py-3.5 px-6 rounded-xl hover:bg-blue-700 active:scale-95 transition-all shadow-lg shadow-blue-600/20 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg" className="w-5 h-5" alt="Outlook" />
-            Continue with Outlook
+            {loading === 'outlook' ? 'Connecting...' : 'Continue with Outlook'}
           </button>
         </div>
+
+        {error && (
+          <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 mt-4">
+            {error}
+          </p>
+        )}
 
         <p className="text-xs text-gray-600 mt-8">
           🔒 Read-only access · No emails stored on servers · Open source
