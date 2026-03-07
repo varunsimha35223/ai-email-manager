@@ -30,19 +30,26 @@ def get_auth_url() -> str:
 
 def exchange_code(code: str) -> dict:
     redirect_uri = os.getenv("GMAIL_REDIRECT_URI", "").strip()
+    client_id = os.getenv("GMAIL_CLIENT_ID", "")
+    client_secret = os.getenv("GMAIL_CLIENT_SECRET", "")
+    print(f"[EXCHANGE] redirect_uri={redirect_uri!r}", flush=True)
+    print(f"[EXCHANGE] client_id={client_id!r}", flush=True)
+    print(f"[EXCHANGE] client_secret_len={len(client_secret)}", flush=True)
+    print(f"[EXCHANGE] code_len={len(code)} code_prefix={code[:30]!r}", flush=True)
     response = http_requests.post(
         "https://oauth2.googleapis.com/token",
         data={
             "grant_type": "authorization_code",
             "code": code,
             "redirect_uri": redirect_uri,
-            "client_id": os.getenv("GMAIL_CLIENT_ID"),
-            "client_secret": os.getenv("GMAIL_CLIENT_SECRET"),
+            "client_id": client_id,
+            "client_secret": client_secret,
         },
     )
+    print(f"[EXCHANGE] response_status={response.status_code} response_body={response.text}", flush=True)
     data = response.json()
     if "error" in data:
-        raise ValueError(f"Token exchange failed: {data.get('error')}: {data.get('error_description', '')}")
+        raise ValueError(f"Token exchange failed: {data.get('error')}: {data.get('error_description', '')} full={data}")
     return {
         "token": data["access_token"],
         "refresh_token": data.get("refresh_token"),
