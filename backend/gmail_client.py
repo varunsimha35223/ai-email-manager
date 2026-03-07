@@ -1,5 +1,6 @@
 import os
 import base64
+import requests as http_requests
 from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
@@ -28,17 +29,27 @@ def get_auth_url() -> str:
 
 
 def exchange_code(code: str) -> dict:
-    flow = Flow.from_client_config(CLIENT_CONFIG, scopes=SCOPES)
-    flow.redirect_uri = os.getenv("GMAIL_REDIRECT_URI")
-    flow.fetch_token(code=code)
-    creds = flow.credentials
+    redirect_uri = os.getenv("GMAIL_REDIRECT_URI", "").strip()
+    response = http_requests.post(
+        "https://oauth2.googleapis.com/token",
+        data={
+            "grant_type": "authorization_code",
+            "code": code,
+            "redirect_uri": redirect_uri,
+            "client_id": os.getenv("GMAIL_CLIENT_ID"),
+            "client_secret": os.getenv("GMAIL_CLIENT_SECRET"),
+        },
+    )
+    data = response.json()
+    if "error" in data:
+        raise ValueError(f"Token exchange failed: {data.get('error')}: {data.get('error_description', '')}")
     return {
-        "token": creds.token,
-        "refresh_token": creds.refresh_token,
-        "token_uri": creds.token_uri,
-        "client_id": creds.client_id,
-        "client_secret": creds.client_secret,
-        "scopes": list(creds.scopes),
+        "token": data["access_token"],
+        "refresh_token": data.get("refresh_token"),
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "client_id": os.getenv("GMAIL_CLIENT_ID"),
+        "client_secret": os.getenv("GMAIL_CLIENT_SECRET"),
+        "scopes": ["https://www.googleapis.com/auth/gmail.readonly"],
     }
 
 
