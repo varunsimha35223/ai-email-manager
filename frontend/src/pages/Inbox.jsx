@@ -33,7 +33,7 @@ export default function Inbox() {
 
   return (
     <div className="min-h-screen bg-gray-950">
-      <Navbar emailCount={emails.length} />
+      <Navbar emailCount={emails.length} provider={provider} />
 
       <div className="max-w-3xl mx-auto px-4 py-6">
 
@@ -56,19 +56,32 @@ export default function Inbox() {
 
         {/* Filter tabs */}
         <div className="flex gap-2 flex-wrap mb-5">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all ${
-                filter === cat
-                  ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                  : 'bg-gray-900 border-gray-800 text-gray-400 hover:border-indigo-500/50 hover:text-white'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {CATEGORIES.map((cat) => {
+            const count = cat === 'All' ? emails.length
+              : cat === 'Urgent' ? emails.filter(e => e.urgent).length
+              : emails.filter(e => e.category === cat).length
+            if (count === 0 && cat !== 'All') return null
+            return (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all flex items-center gap-1.5 ${
+                  filter === cat
+                    ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-500/20'
+                    : 'bg-gray-900 border-gray-800 text-gray-400 hover:border-indigo-500/50 hover:text-white'
+                }`}
+              >
+                {cat}
+                {count > 0 && (
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
+                    filter === cat ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-500'
+                  }`}>
+                    {count}
+                  </span>
+                )}
+              </button>
+            )
+          })}
         </div>
 
         {/* Loading */}
