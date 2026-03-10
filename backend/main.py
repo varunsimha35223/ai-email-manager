@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
@@ -40,8 +40,12 @@ def gmail_callback(code: str = Query(...), session_id: str = Query(default="defa
     except Exception as e:
         if session_id not in sessions:
             raise HTTPException(status_code=500, detail=str(e))
-    frontend = os.getenv("FRONTEND_URL", "http://localhost:5173")
-    return RedirectResponse(f"{frontend}/inbox?session={session_id}&provider=gmail")
+    frontend = os.getenv("FRONTEND_URL", "http://localhost:5173").strip()
+    print(f"[CALLBACK] FRONTEND_URL={frontend!r}", flush=True)
+    redirect_url = f"{frontend}/inbox?session={session_id}&provider=gmail"
+    return HTMLResponse(content=f"""<!DOCTYPE html>
+<html><head><script>window.location.replace("{redirect_url}");</script></head>
+<body>Redirecting...</body></html>""")
 
 
 @app.get("/auth/outlook")
