@@ -22,7 +22,7 @@ export default function Navbar({ emailCount, provider }) {
           </div>
           <div className="hidden sm:flex items-center gap-1.5 rounded-full px-2.5 py-1 border border-white/10" style={{ background: 'rgba(255,255,255,0.05)' }}>
             <img src={providerIcon} className="w-3.5 h-3.5" alt={prov} />
-            <span className="text-xs text-slate-400 capitalize">{prov}</span>
+            <span className="text-xs text-white capitalize">{prov}</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           </div>
           {emailCount > 0 && (
@@ -34,14 +34,14 @@ export default function Navbar({ emailCount, provider }) {
         <div className="flex items-center gap-1">
           <button
             onClick={() => navigate(`/summary?session=${sessionId}`)}
-            className="text-sm text-slate-400 hover:text-white px-3 py-1.5 rounded-xl hover:bg-white/5 transition flex items-center gap-1.5"
+            className="text-sm text-white hover:text-white px-3 py-1.5 rounded-xl hover:bg-white/5 transition flex items-center gap-1.5"
           >
             <span>📋</span>
             <span className="hidden sm:inline">Summary</span>
           </button>
           <button
             onClick={() => navigate('/')}
-            className="text-sm text-slate-300 hover:text-red-400 px-3 py-1.5 rounded-xl hover:bg-red-500/10 transition"
+            className="text-sm text-white hover:text-red-400 px-3 py-1.5 rounded-xl hover:bg-red-500/10 transition"
           >
             Disconnect
           </button>

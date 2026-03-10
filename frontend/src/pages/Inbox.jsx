@@ -50,7 +50,7 @@ export default function Inbox() {
                 style={{ background: 'rgba(255,255,255,0.08)' }}>
                 <div className={`absolute inset-0 bg-gradient-to-br ${s.from} ${s.to} opacity-10`} />
                 <p className="text-3xl font-black text-white relative z-10">{s.value}</p>
-                <p className="text-xs text-slate-300 mt-0.5 relative z-10 font-medium">{s.label}</p>
+                <p className="text-xs text-white mt-0.5 relative z-10 font-medium">{s.label}</p>
               </div>
             ))}
           </div>
@@ -70,13 +70,13 @@ export default function Inbox() {
                 className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all flex items-center gap-1.5 ${
                   filter === cat
                     ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                    : 'border-white/15 text-slate-400 hover:border-violet-500/50 hover:text-white'
+                    : 'border-white/15 text-white hover:border-violet-500/50 hover:text-white'
                 }`}
               >
                 {cat}
                 {count > 0 && (
                   <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                    filter === cat ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-400'
+                    filter === cat ? 'bg-white/20 text-white' : 'bg-white/10 text-white'
                   }`}>
                     {count}
                   </span>
@@ -95,7 +95,7 @@ export default function Inbox() {
               <div className="absolute inset-0 flex items-center justify-center text-2xl">🧠</div>
             </div>
             <p className="text-white font-semibold text-lg">AI is processing your emails</p>
-            <p className="text-slate-400 text-sm mt-1">Categorizing · Flagging · Drafting replies</p>
+            <p className="text-white text-sm mt-1">Categorizing · Flagging · Drafting replies</p>
           </div>
         )}
 
@@ -109,7 +109,7 @@ export default function Inbox() {
         {!loading && !error && (
           <div className="space-y-2">
             {filtered.length === 0 ? (
-              <div className="text-center py-16 text-slate-400">
+              <div className="text-center py-16 text-white">
                 <p className="text-4xl mb-3">📭</p>
                 <p>No emails in this category</p>
               </div>

@@ -45,7 +45,7 @@ export default function Summary() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-white">Daily Digest</h1>
-            <p className="text-slate-300 text-sm mt-0.5">AI-generated summary of your inbox</p>
+            <p className="text-white text-sm mt-0.5">AI-generated summary of your inbox</p>
           </div>
         </div>
 
@@ -58,7 +58,7 @@ export default function Summary() {
               <div className="absolute inset-0 flex items-center justify-center text-2xl">🧠</div>
             </div>
             <p className="text-white font-semibold">Generating your digest...</p>
-            <p className="text-slate-300 text-sm mt-1">Reading and summarizing all emails</p>
+            <p className="text-white text-sm mt-1">Reading and summarizing all emails</p>
           </div>
         )}
 
@@ -79,7 +79,7 @@ export default function Summary() {
               <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-xs">✨</div>
               <p className="text-sm font-bold text-violet-300">AI Summary</p>
             </div>
-            <p className="text-slate-300 whitespace-pre-wrap text-sm leading-relaxed">{summary}</p>
+            <p className="text-white whitespace-pre-wrap text-sm leading-relaxed">{summary}</p>
           </div>
         )}
 

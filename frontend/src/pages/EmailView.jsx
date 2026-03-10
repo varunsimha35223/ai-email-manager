@@ -31,7 +31,7 @@ export default function EmailView() {
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b border-white/5" style={{ background: 'rgba(10,10,20,0.85)', backdropFilter: 'blur(20px)' }}>
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <button onClick={() => navigate(-1)} className="text-slate-400 hover:text-white transition px-2 py-1 rounded-lg hover:bg-white/5 text-sm">
+          <button onClick={() => navigate(-1)} className="text-white hover:text-white transition px-2 py-1 rounded-lg hover:bg-white/5 text-sm">
             ← Back
           </button>
           <span className="text-slate-500">|</span>
@@ -57,16 +57,16 @@ export default function EmailView() {
                 )}
               </div>
               <h1 className="text-lg font-bold text-white mb-1">{email.subject}</h1>
-              <p className="text-sm text-slate-200">{email.sender}</p>
-              <p className="text-xs text-slate-400 mt-0.5">{new Date(email.date).toLocaleString()}</p>
+              <p className="text-sm text-white">{email.sender}</p>
+              <p className="text-xs text-white mt-0.5">{new Date(email.date).toLocaleString()}</p>
             </div>
           </div>
         </div>
 
         {/* Body */}
         <div className="rounded-2xl p-5 border border-white/10" style={{ background: 'rgba(255,255,255,0.08)' }}>
-          <p className="text-xs font-bold text-slate-300 uppercase tracking-widest mb-3">Message</p>
-          <p className="text-slate-300 whitespace-pre-wrap text-sm leading-relaxed">{email.body || 'No content available.'}</p>
+          <p className="text-xs font-bold text-white uppercase tracking-widest mb-3">Message</p>
+          <p className="text-white whitespace-pre-wrap text-sm leading-relaxed">{email.body || 'No content available.'}</p>
         </div>
 
         {/* AI Reply */}
@@ -88,7 +88,7 @@ export default function EmailView() {
               {copied ? '✓ Copied!' : 'Copy Reply'}
             </button>
           </div>
-          <p className="text-slate-300 whitespace-pre-wrap text-sm leading-relaxed">
+          <p className="text-white whitespace-pre-wrap text-sm leading-relaxed">
             {email.draft_reply || 'No reply drafted.'}
           </p>
         </div>
