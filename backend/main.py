@@ -34,8 +34,12 @@ def gmail_login():
 
 @app.get("/auth/gmail/callback")
 def gmail_callback(code: str = Query(...), session_id: str = Query(default="default")):
-    credentials = gmail_client.exchange_code(code)
-    sessions[session_id] = {"provider": "gmail", "credentials": credentials}
+    try:
+        credentials = gmail_client.exchange_code(code)
+        sessions[session_id] = {"provider": "gmail", "credentials": credentials}
+    except Exception as e:
+        if session_id not in sessions:
+            raise HTTPException(status_code=500, detail=str(e))
     frontend = os.getenv("FRONTEND_URL", "http://localhost:5173")
     return RedirectResponse(f"{frontend}/inbox?session={session_id}&provider=gmail")
 
