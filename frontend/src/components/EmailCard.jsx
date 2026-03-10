@@ -46,37 +46,40 @@ export default function EmailCard({ email, sessionId }) {
   return (
     <div
       onClick={() => navigate(`/email/${email.id}`, { state: { email, sessionId } })}
-      className="group cursor-pointer bg-gray-900 border border-gray-800 rounded-xl p-4 hover:border-indigo-500/40 hover:bg-gray-800/60 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/5"
+      className="group cursor-pointer rounded-2xl p-4 transition-all duration-200 border border-white/5 hover:border-violet-500/30"
+      style={{ background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(8px)' }}
+      onMouseEnter={e => e.currentTarget.style.background = 'rgba(99,102,241,0.06)'}
+      onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
     >
       <div className="flex items-start gap-3">
-        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${avatarColor(email.sender)} flex items-center justify-center text-white text-sm font-bold shrink-0 shadow-md`}>
+        <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${avatarColor(email.sender)} flex items-center justify-center text-white text-sm font-bold shrink-0 shadow-lg`}>
           {senderInitial(email.sender)}
         </div>
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-0.5">
-            <p className="text-sm font-medium text-gray-300 truncate">{senderName(email.sender)}</p>
-            <p className="text-xs text-gray-500 whitespace-nowrap shrink-0">{relativeTime(email.date)}</p>
+            <p className="text-sm font-semibold text-white truncate">{senderName(email.sender)}</p>
+            <p className="text-xs text-slate-500 whitespace-nowrap shrink-0">{relativeTime(email.date)}</p>
           </div>
 
-          <p className="font-semibold text-white truncate mb-1.5 text-sm">{email.subject}</p>
+          <p className="text-sm text-slate-300 truncate mb-2">{email.subject}</p>
 
           <div className="flex items-center gap-2 flex-wrap">
             <CategoryBadge category={email.category} />
             {email.urgent && (
-              <span className="text-xs font-semibold text-red-400 bg-red-500/10 border border-red-500/20 px-2 py-0.5 rounded-full">
+              <span className="text-xs font-bold text-red-300 bg-red-500/15 border border-red-500/30 px-2 py-0.5 rounded-full">
                 ⚡ Urgent
               </span>
             )}
             {email.body && (
-              <span className="text-xs text-gray-600 truncate hidden sm:block max-w-[200px]">
+              <span className="text-xs text-slate-600 truncate hidden sm:block max-w-[200px]">
                 {email.body.replace(/\s+/g, ' ').slice(0, 70)}…
               </span>
             )}
           </div>
         </div>
 
-        <span className="text-gray-700 group-hover:text-indigo-400 transition-colors text-lg shrink-0 mt-1">›</span>
+        <span className="text-slate-700 group-hover:text-violet-400 transition-colors text-xl shrink-0 mt-1">›</span>
       </div>
     </div>
   )

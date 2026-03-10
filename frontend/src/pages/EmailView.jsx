@@ -27,67 +27,68 @@ export default function EmailView() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #0a0a14 0%, #0d0d1f 50%, #0a0a14 100%)' }}>
       {/* Top bar */}
-      <header className="sticky top-0 z-50 bg-gray-950/80 backdrop-blur border-b border-gray-800">
+      <header className="sticky top-0 z-50 border-b border-white/5" style={{ background: 'rgba(10,10,20,0.85)', backdropFilter: 'blur(20px)' }}>
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <button onClick={() => navigate(-1)} className="text-gray-400 hover:text-white transition p-1 rounded-lg hover:bg-gray-800">
+          <button onClick={() => navigate(-1)} className="text-slate-400 hover:text-white transition px-2 py-1 rounded-lg hover:bg-white/5 text-sm">
             ← Back
           </button>
-          <span className="text-gray-600">|</span>
-          <span className="text-white font-medium truncate">{email.subject}</span>
+          <span className="text-slate-700">|</span>
+          <span className="text-white font-medium truncate text-sm">{email.subject}</span>
         </div>
       </header>
 
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
 
         {/* Email meta */}
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+        <div className="rounded-2xl p-5 border border-white/5" style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(12px)' }}>
           <div className="flex items-start gap-4">
-            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shrink-0 shadow-lg shadow-violet-500/20">
               {email.sender?.[0]?.toUpperCase() || '?'}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap mb-1">
+              <div className="flex items-center gap-2 flex-wrap mb-2">
                 <CategoryBadge category={email.category} />
                 {email.urgent && (
-                  <span className="text-xs font-semibold text-red-400 bg-red-500/10 border border-red-500/20 px-2 py-0.5 rounded-full">
+                  <span className="text-xs font-bold text-red-300 bg-red-500/15 border border-red-500/30 px-2 py-0.5 rounded-full">
                     ⚡ Urgent
                   </span>
                 )}
               </div>
               <h1 className="text-lg font-bold text-white mb-1">{email.subject}</h1>
-              <p className="text-sm text-gray-400">{email.sender}</p>
-              <p className="text-xs text-gray-600 mt-0.5">{new Date(email.date).toLocaleString()}</p>
+              <p className="text-sm text-slate-400">{email.sender}</p>
+              <p className="text-xs text-slate-600 mt-0.5">{new Date(email.date).toLocaleString()}</p>
             </div>
           </div>
         </div>
 
         {/* Body */}
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Message</p>
-          <p className="text-gray-300 whitespace-pre-wrap text-sm leading-relaxed">{email.body || 'No content available.'}</p>
+        <div className="rounded-2xl p-5 border border-white/5" style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(12px)' }}>
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Message</p>
+          <p className="text-slate-300 whitespace-pre-wrap text-sm leading-relaxed">{email.body || 'No content available.'}</p>
         </div>
 
         {/* AI Reply */}
-        <div className="bg-gradient-to-br from-indigo-950/60 to-purple-950/60 border border-indigo-500/30 rounded-2xl p-5">
+        <div className="rounded-2xl p-5 border border-violet-500/20" style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(99,102,241,0.08) 100%)', backdropFilter: 'blur(12px)' }}>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <span className="text-lg">✨</span>
-              <p className="text-sm font-semibold text-indigo-300">AI Draft Reply</p>
+              <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-xs">✨</div>
+              <p className="text-sm font-bold text-violet-300">AI Draft Reply</p>
             </div>
             <button
               onClick={copyReply}
-              className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-all ${
+              className={`text-xs font-bold px-3 py-1.5 rounded-xl transition-all ${
                 copied
-                  ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                  : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                  : 'text-white border border-violet-500/40 hover:border-violet-400'
               }`}
+              style={copied ? {} : { background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}
             >
               {copied ? '✓ Copied!' : 'Copy Reply'}
             </button>
           </div>
-          <p className="text-gray-300 whitespace-pre-wrap text-sm leading-relaxed">
+          <p className="text-slate-300 whitespace-pre-wrap text-sm leading-relaxed">
             {email.draft_reply || 'No reply drafted.'}
           </p>
         </div>

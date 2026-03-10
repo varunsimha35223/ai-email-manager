@@ -32,7 +32,7 @@ export default function Inbox() {
   const urgentCount = emails.filter((e) => e.urgent).length
 
   return (
-    <div className="min-h-screen bg-gray-950">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #0a0a14 0%, #0d0d1f 50%, #0a0a14 100%)' }}>
       <Navbar emailCount={emails.length} provider={provider} />
 
       <div className="max-w-3xl mx-auto px-4 py-6">
@@ -41,14 +41,16 @@ export default function Inbox() {
         {!loading && emails.length > 0 && (
           <div className="grid grid-cols-4 gap-3 mb-6">
             {[
-              { label: 'Total', value: emails.length, color: 'text-white' },
-              { label: 'Urgent', value: urgentCount, color: 'text-red-400' },
-              { label: 'Work', value: emails.filter(e => e.category === 'Work').length, color: 'text-blue-400' },
-              { label: 'Personal', value: emails.filter(e => e.category === 'Personal').length, color: 'text-green-400' },
+              { label: 'Total',    value: emails.length,                                      from: 'from-indigo-600',  to: 'to-violet-600',  shadow: 'shadow-indigo-500/20' },
+              { label: 'Urgent',   value: urgentCount,                                        from: 'from-red-500',     to: 'to-rose-600',    shadow: 'shadow-red-500/20' },
+              { label: 'Work',     value: emails.filter(e => e.category === 'Work').length,   from: 'from-blue-500',    to: 'to-cyan-600',    shadow: 'shadow-blue-500/20' },
+              { label: 'Personal', value: emails.filter(e => e.category === 'Personal').length, from: 'from-emerald-500', to: 'to-teal-600', shadow: 'shadow-emerald-500/20' },
             ].map((s) => (
-              <div key={s.label} className="bg-gray-900 border border-gray-800 rounded-xl p-3 text-center">
-                <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
-                <p className="text-xs text-gray-500">{s.label}</p>
+              <div key={s.label} className={`relative overflow-hidden rounded-2xl p-4 text-center shadow-lg ${s.shadow} border border-white/5`}
+                style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(12px)' }}>
+                <div className={`absolute inset-0 bg-gradient-to-br ${s.from} ${s.to} opacity-10`} />
+                <p className="text-3xl font-black text-white relative z-10">{s.value}</p>
+                <p className="text-xs text-gray-400 mt-0.5 relative z-10 font-medium">{s.label}</p>
               </div>
             ))}
           </div>
