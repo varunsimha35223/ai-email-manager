@@ -41,7 +41,7 @@ export default function Navbar({ emailCount, provider }) {
           </button>
           <button
             onClick={() => navigate('/')}
-            className="text-sm text-slate-500 hover:text-red-400 px-3 py-1.5 rounded-xl hover:bg-red-500/10 transition"
+            className="text-sm text-slate-300 hover:text-red-400 px-3 py-1.5 rounded-xl hover:bg-red-500/10 transition"
           >
             Disconnect
           </button>

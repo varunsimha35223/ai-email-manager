@@ -50,7 +50,7 @@ export default function Inbox() {
                 style={{ background: 'rgba(255,255,255,0.08)' }}>
                 <div className={`absolute inset-0 bg-gradient-to-br ${s.from} ${s.to} opacity-10`} />
                 <p className="text-3xl font-black text-white relative z-10">{s.value}</p>
-                <p className="text-xs text-gray-400 mt-0.5 relative z-10 font-medium">{s.label}</p>
+                <p className="text-xs text-slate-300 mt-0.5 relative z-10 font-medium">{s.label}</p>
               </div>
             ))}
           </div>
@@ -95,7 +95,7 @@ export default function Inbox() {
               <div className="absolute inset-0 flex items-center justify-center text-2xl">🧠</div>
             </div>
             <p className="text-white font-semibold text-lg">AI is processing your emails</p>
-            <p className="text-gray-500 text-sm mt-1">Categorizing · Flagging · Drafting replies</p>
+            <p className="text-slate-400 text-sm mt-1">Categorizing · Flagging · Drafting replies</p>
           </div>
         )}
 
@@ -109,7 +109,7 @@ export default function Inbox() {
         {!loading && !error && (
           <div className="space-y-2">
             {filtered.length === 0 ? (
-              <div className="text-center py-16 text-gray-600">
+              <div className="text-center py-16 text-slate-400">
                 <p className="text-4xl mb-3">📭</p>
                 <p>No emails in this category</p>
               </div>

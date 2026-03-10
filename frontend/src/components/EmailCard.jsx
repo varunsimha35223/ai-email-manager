@@ -59,7 +59,7 @@ export default function EmailCard({ email, sessionId }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-0.5">
             <p className="text-sm font-semibold text-white truncate">{senderName(email.sender)}</p>
-            <p className="text-xs text-slate-500 whitespace-nowrap shrink-0">{relativeTime(email.date)}</p>
+            <p className="text-xs text-slate-300 whitespace-nowrap shrink-0">{relativeTime(email.date)}</p>
           </div>
 
           <p className="text-sm text-slate-300 truncate mb-2">{email.subject}</p>
@@ -72,14 +72,14 @@ export default function EmailCard({ email, sessionId }) {
               </span>
             )}
             {email.body && (
-              <span className="text-xs text-slate-600 truncate hidden sm:block max-w-[200px]">
+              <span className="text-xs text-slate-400 truncate hidden sm:block max-w-[200px]">
                 {email.body.replace(/\s+/g, ' ').slice(0, 70)}…
               </span>
             )}
           </div>
         </div>
 
-        <span className="text-slate-700 group-hover:text-violet-400 transition-colors text-xl shrink-0 mt-1">›</span>
+        <span className="text-slate-400 group-hover:text-violet-400 transition-colors text-xl shrink-0 mt-1">›</span>
       </div>
     </div>
   )

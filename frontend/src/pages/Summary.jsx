@@ -31,7 +31,7 @@ export default function Summary() {
           <button onClick={() => navigate(-1)} className="text-slate-400 hover:text-white transition px-2 py-1 rounded-lg hover:bg-white/5 text-sm">
             ← Back
           </button>
-          <span className="text-slate-700">|</span>
+          <span className="text-slate-500">|</span>
           <span className="text-white font-medium text-sm">Daily Summary</span>
         </div>
       </header>
@@ -45,7 +45,7 @@ export default function Summary() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-white">Daily Digest</h1>
-            <p className="text-slate-500 text-sm mt-0.5">AI-generated summary of your inbox</p>
+            <p className="text-slate-300 text-sm mt-0.5">AI-generated summary of your inbox</p>
           </div>
         </div>
 
@@ -58,7 +58,7 @@ export default function Summary() {
               <div className="absolute inset-0 flex items-center justify-center text-2xl">🧠</div>
             </div>
             <p className="text-white font-semibold">Generating your digest...</p>
-            <p className="text-slate-500 text-sm mt-1">Reading and summarizing all emails</p>
+            <p className="text-slate-300 text-sm mt-1">Reading and summarizing all emails</p>
           </div>
         )}
 

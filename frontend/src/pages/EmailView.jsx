@@ -34,7 +34,7 @@ export default function EmailView() {
           <button onClick={() => navigate(-1)} className="text-slate-400 hover:text-white transition px-2 py-1 rounded-lg hover:bg-white/5 text-sm">
             ← Back
           </button>
-          <span className="text-slate-700">|</span>
+          <span className="text-slate-500">|</span>
           <span className="text-white font-medium truncate text-sm">{email.subject}</span>
         </div>
       </header>
@@ -57,15 +57,15 @@ export default function EmailView() {
                 )}
               </div>
               <h1 className="text-lg font-bold text-white mb-1">{email.subject}</h1>
-              <p className="text-sm text-slate-400">{email.sender}</p>
-              <p className="text-xs text-slate-600 mt-0.5">{new Date(email.date).toLocaleString()}</p>
+              <p className="text-sm text-slate-200">{email.sender}</p>
+              <p className="text-xs text-slate-400 mt-0.5">{new Date(email.date).toLocaleString()}</p>
             </div>
           </div>
         </div>
 
         {/* Body */}
         <div className="rounded-2xl p-5 border border-white/10" style={{ background: 'rgba(255,255,255,0.08)' }}>
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Message</p>
+          <p className="text-xs font-bold text-slate-300 uppercase tracking-widest mb-3">Message</p>
           <p className="text-slate-300 whitespace-pre-wrap text-sm leading-relaxed">{email.body || 'No content available.'}</p>
         </div>
 
