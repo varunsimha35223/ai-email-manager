@@ -41,7 +41,6 @@ def gmail_callback(code: str = Query(...), session_id: str = Query(default="defa
         if session_id not in sessions:
             raise HTTPException(status_code=500, detail=str(e))
     frontend = os.getenv("FRONTEND_URL", "http://localhost:5173").strip()
-    print(f"[CALLBACK] FRONTEND_URL={frontend!r}", flush=True)
     redirect_url = f"{frontend}/inbox?session={session_id}&provider=gmail"
     return HTMLResponse(content=f"""<!DOCTYPE html>
 <html><head><script>window.location.replace("{redirect_url}");</script></head>
