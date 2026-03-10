@@ -42,7 +42,7 @@ export default function EmailView() {
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
 
         {/* Email meta */}
-        <div className="rounded-2xl p-5 border border-white/5" style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(12px)' }}>
+        <div className="rounded-2xl p-5 border border-white/10" style={{ background: 'rgba(255,255,255,0.08)' }}>
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shrink-0 shadow-lg shadow-violet-500/20">
               {email.sender?.[0]?.toUpperCase() || '?'}
@@ -64,13 +64,13 @@ export default function EmailView() {
         </div>
 
         {/* Body */}
-        <div className="rounded-2xl p-5 border border-white/5" style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(12px)' }}>
+        <div className="rounded-2xl p-5 border border-white/10" style={{ background: 'rgba(255,255,255,0.08)' }}>
           <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Message</p>
           <p className="text-slate-300 whitespace-pre-wrap text-sm leading-relaxed">{email.body || 'No content available.'}</p>
         </div>
 
         {/* AI Reply */}
-        <div className="rounded-2xl p-5 border border-violet-500/20" style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(99,102,241,0.08) 100%)', backdropFilter: 'blur(12px)' }}>
+        <div className="rounded-2xl p-5 border border-violet-500/30" style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(99,102,241,0.18) 100%)' }}>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-xs">✨</div>

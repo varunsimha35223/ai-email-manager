@@ -46,8 +46,8 @@ export default function Inbox() {
               { label: 'Work',     value: emails.filter(e => e.category === 'Work').length,   from: 'from-blue-500',    to: 'to-cyan-600',    shadow: 'shadow-blue-500/20' },
               { label: 'Personal', value: emails.filter(e => e.category === 'Personal').length, from: 'from-emerald-500', to: 'to-teal-600', shadow: 'shadow-emerald-500/20' },
             ].map((s) => (
-              <div key={s.label} className={`relative overflow-hidden rounded-2xl p-4 text-center shadow-lg ${s.shadow} border border-white/5`}
-                style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(12px)' }}>
+              <div key={s.label} className={`relative overflow-hidden rounded-2xl p-4 text-center shadow-lg ${s.shadow} border border-white/10`}
+                style={{ background: 'rgba(255,255,255,0.08)' }}>
                 <div className={`absolute inset-0 bg-gradient-to-br ${s.from} ${s.to} opacity-10`} />
                 <p className="text-3xl font-black text-white relative z-10">{s.value}</p>
                 <p className="text-xs text-gray-400 mt-0.5 relative z-10 font-medium">{s.label}</p>
@@ -70,13 +70,13 @@ export default function Inbox() {
                 className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all flex items-center gap-1.5 ${
                   filter === cat
                     ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                    : 'bg-gray-900 border-gray-800 text-gray-400 hover:border-indigo-500/50 hover:text-white'
+                    : 'border-white/15 text-slate-400 hover:border-violet-500/50 hover:text-white'
                 }`}
               >
                 {cat}
                 {count > 0 && (
                   <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                    filter === cat ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-500'
+                    filter === cat ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-400'
                   }`}>
                     {count}
                   </span>

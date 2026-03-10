@@ -73,7 +73,7 @@ export default function Summary() {
         {!loading && !error && (
           <div
             className="rounded-2xl p-6 border border-violet-500/20"
-            style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(99,102,241,0.08) 100%)', backdropFilter: 'blur(12px)' }}
+            style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(99,102,241,0.18) 100%)' }}
           >
             <div className="flex items-center gap-2 mb-4">
               <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-xs">✨</div>

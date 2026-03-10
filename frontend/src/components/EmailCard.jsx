@@ -46,10 +46,10 @@ export default function EmailCard({ email, sessionId }) {
   return (
     <div
       onClick={() => navigate(`/email/${email.id}`, { state: { email, sessionId } })}
-      className="group cursor-pointer rounded-2xl p-4 transition-all duration-200 border border-white/5 hover:border-violet-500/30"
-      style={{ background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(8px)' }}
-      onMouseEnter={e => e.currentTarget.style.background = 'rgba(99,102,241,0.06)'}
-      onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
+      className="group cursor-pointer rounded-2xl p-4 transition-all duration-200 border border-white/10 hover:border-violet-500/40"
+      style={{ background: 'rgba(255,255,255,0.07)' }}
+      onMouseEnter={e => e.currentTarget.style.background = 'rgba(99,102,241,0.15)'}
+      onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.07)'}
     >
       <div className="flex items-start gap-3">
         <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${avatarColor(email.sender)} flex items-center justify-center text-white text-sm font-bold shrink-0 shadow-lg`}>
