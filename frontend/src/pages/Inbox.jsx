@@ -6,6 +6,13 @@ import Navbar from '../components/Navbar'
 
 const CATEGORIES = ['All', 'Urgent', 'Work', 'Personal', 'Newsletter', 'Finance', 'Social', 'Spam']
 
+const STAT_COLORS = [
+  { glow: 'rgba(99,102,241,0.5)',  bg: 'rgba(99,102,241,0.12)',  border: 'rgba(99,102,241,0.3)',  dot: '#818cf8' },
+  { glow: 'rgba(239,68,68,0.5)',   bg: 'rgba(239,68,68,0.12)',   border: 'rgba(239,68,68,0.3)',   dot: '#f87171' },
+  { glow: 'rgba(59,130,246,0.5)',  bg: 'rgba(59,130,246,0.12)',  border: 'rgba(59,130,246,0.3)',  dot: '#60a5fa' },
+  { glow: 'rgba(16,185,129,0.5)',  bg: 'rgba(16,185,129,0.12)',  border: 'rgba(16,185,129,0.3)',  dot: '#34d399' },
+]
+
 export default function Inbox() {
   const [params] = useSearchParams()
   const sessionId = params.get('session') || 'default'
@@ -31,51 +38,94 @@ export default function Inbox() {
 
   const urgentCount = emails.filter((e) => e.urgent).length
 
+  const stats = [
+    { label: 'Total',    value: emails.length },
+    { label: 'Urgent',   value: urgentCount },
+    { label: 'Work',     value: emails.filter(e => e.category === 'Work').length },
+    { label: 'Personal', value: emails.filter(e => e.category === 'Personal').length },
+  ]
+
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div style={{
+      minHeight: '100vh',
+      background: '#080810',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      position: 'relative',
+    }}>
+
+      {/* Background glow */}
+      <div style={{
+        position: 'fixed', top: '-150px', right: '-100px',
+        width: '500px', height: '500px',
+        background: 'radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
+      <div style={{
+        position: 'fixed', bottom: '-100px', left: '-100px',
+        width: '400px', height: '400px',
+        background: 'radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
+
       <Navbar emailCount={emails.length} provider={provider} />
 
-      <div className="max-w-3xl mx-auto px-4 py-6">
+      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '28px 20px', position: 'relative', zIndex: 1 }}>
 
-        {/* Stats bar */}
+        {/* Stats */}
         {!loading && emails.length > 0 && (
-          <div className="grid grid-cols-4 gap-3 mb-6">
-            {[
-              { label: 'Total',    value: emails.length,                                        color: 'bg-indigo-600' },
-              { label: 'Urgent',   value: urgentCount,                                          color: 'bg-red-600' },
-              { label: 'Work',     value: emails.filter(e => e.category === 'Work').length,     color: 'bg-blue-600' },
-              { label: 'Personal', value: emails.filter(e => e.category === 'Personal').length, color: 'bg-emerald-600' },
-            ].map((s) => (
-              <div key={s.label} className="bg-gray-800 rounded-2xl p-4 text-center border border-gray-700">
-                <div className={`w-2 h-2 ${s.color} rounded-full mx-auto mb-2`} />
-                <p className="text-3xl font-black text-white">{s.value}</p>
-                <p className="text-xs text-gray-300 mt-0.5 font-medium">{s.label}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '24px' }}>
+            {stats.map((s, i) => (
+              <div key={s.label} style={{
+                background: STAT_COLORS[i].bg,
+                border: `1px solid ${STAT_COLORS[i].border}`,
+                borderRadius: '14px',
+                padding: '16px',
+                textAlign: 'center',
+              }}>
+                <div style={{
+                  width: '8px', height: '8px', borderRadius: '50%',
+                  background: STAT_COLORS[i].dot,
+                  boxShadow: `0 0 8px ${STAT_COLORS[i].dot}`,
+                  margin: '0 auto 8px',
+                }} />
+                <p style={{ fontSize: '30px', fontWeight: 900, color: '#fff', margin: 0, lineHeight: 1 }}>{s.value}</p>
+                <p style={{ fontSize: '11px', color: '#94a3b8', margin: '6px 0 0', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{s.label}</p>
               </div>
             ))}
           </div>
         )}
 
         {/* Filter tabs */}
-        <div className="flex gap-2 flex-wrap mb-5">
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
           {CATEGORIES.map((cat) => {
             const count = cat === 'All' ? emails.length
               : cat === 'Urgent' ? emails.filter(e => e.urgent).length
               : emails.filter(e => e.category === cat).length
             if (count === 0 && cat !== 'All') return null
+            const active = filter === cat
             return (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all flex items-center gap-1.5 ${
-                  filter === cat
-                    ? 'bg-indigo-600 border-indigo-600 text-white'
-                    : 'bg-gray-800 border-gray-600 text-gray-300 hover:border-indigo-500 hover:text-white'
-                }`}
+                style={{
+                  fontSize: '12px', fontWeight: 600,
+                  padding: '6px 14px', borderRadius: '999px',
+                  border: active ? '1px solid rgba(99,102,241,0.8)' : '1px solid rgba(255,255,255,0.1)',
+                  background: active ? 'rgba(99,102,241,0.25)' : 'rgba(255,255,255,0.04)',
+                  color: active ? '#a5b4fc' : '#94a3b8',
+                  cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', gap: '6px',
+                  transition: 'all 0.15s',
+                  boxShadow: active ? '0 0 12px rgba(99,102,241,0.2)' : 'none',
+                }}
               >
                 {cat}
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                  filter === cat ? 'bg-white/20 text-white' : 'bg-gray-700 text-gray-300'
-                }`}>
+                <span style={{
+                  fontSize: '10px', fontWeight: 700,
+                  background: active ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.08)',
+                  color: active ? '#fff' : '#64748b',
+                  borderRadius: '999px', padding: '1px 7px',
+                }}>
                   {count}
                 </span>
               </button>
@@ -85,30 +135,40 @@ export default function Inbox() {
 
         {/* Loading */}
         {loading && (
-          <div className="text-center py-24">
-            <div className="relative w-16 h-16 mx-auto mb-6">
-              <div className="absolute inset-0 rounded-full border-2 border-indigo-900" />
-              <div className="absolute inset-0 rounded-full border-t-2 border-indigo-500 animate-spin" />
-              <div className="absolute inset-0 flex items-center justify-center text-2xl">🧠</div>
+          <div style={{ textAlign: 'center', padding: '80px 0' }}>
+            <div style={{ position: 'relative', width: '64px', height: '64px', margin: '0 auto 20px' }}>
+              <div style={{
+                position: 'absolute', inset: 0, borderRadius: '50%',
+                border: '2px solid rgba(99,102,241,0.15)',
+              }} />
+              <div style={{
+                position: 'absolute', inset: 0, borderRadius: '50%',
+                borderTop: '2px solid #818cf8', animation: 'spin 0.8s linear infinite',
+              }} />
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>🧠</div>
             </div>
-            <p className="text-white font-semibold text-lg">AI is processing your emails</p>
-            <p className="text-gray-400 text-sm mt-1">Categorizing · Flagging · Drafting replies</p>
+            <p style={{ color: '#f1f5f9', fontWeight: 700, fontSize: '17px', margin: '0 0 6px' }}>AI is processing your emails</p>
+            <p style={{ color: '#64748b', fontSize: '13px', margin: 0 }}>Categorizing · Flagging · Drafting replies</p>
           </div>
         )}
 
+        {/* Error */}
         {error && (
-          <div className="bg-red-900/50 border border-red-700 text-red-300 rounded-xl p-4 text-center">
+          <div style={{
+            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
+            borderRadius: '12px', padding: '16px', textAlign: 'center', color: '#fca5a5', fontSize: '14px',
+          }}>
             {error}
           </div>
         )}
 
         {/* Email list */}
         {!loading && !error && (
-          <div className="space-y-2">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {filtered.length === 0 ? (
-              <div className="text-center py-16 text-gray-400">
-                <p className="text-4xl mb-3">📭</p>
-                <p>No emails in this category</p>
+              <div style={{ textAlign: 'center', padding: '60px 0', color: '#475569' }}>
+                <p style={{ fontSize: '40px', margin: '0 0 12px' }}>📭</p>
+                <p style={{ fontSize: '14px', margin: 0 }}>No emails in this category</p>
               </div>
             ) : (
               filtered.map((email) => (
@@ -118,6 +178,10 @@ export default function Inbox() {
           </div>
         )}
       </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
     </div>
   )
 }

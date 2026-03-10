@@ -1,18 +1,30 @@
 const config = {
-  Urgent:     { cls: 'bg-red-500/20 text-red-400 border-red-500/30',     icon: '⚡' },
-  Work:       { cls: 'bg-blue-500/20 text-blue-400 border-blue-500/30',   icon: '💼' },
-  Newsletter: { cls: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30', icon: '📰' },
-  Personal:   { cls: 'bg-green-500/20 text-green-400 border-green-500/30', icon: '👤' },
-  Spam:       { cls: 'bg-gray-500/20 text-gray-400 border-gray-500/30',   icon: '🗑' },
-  Finance:    { cls: 'bg-purple-500/20 text-purple-400 border-purple-500/30', icon: '💰' },
-  Social:     { cls: 'bg-pink-500/20 text-pink-400 border-pink-500/30',   icon: '🌐' },
+  Urgent:     { bg: 'rgba(239,68,68,0.15)',   border: 'rgba(239,68,68,0.4)',   color: '#fca5a5', icon: '⚡' },
+  Work:       { bg: 'rgba(59,130,246,0.15)',  border: 'rgba(59,130,246,0.4)',  color: '#93c5fd', icon: '💼' },
+  Newsletter: { bg: 'rgba(234,179,8,0.15)',   border: 'rgba(234,179,8,0.4)',   color: '#fde047', icon: '📰' },
+  Personal:   { bg: 'rgba(34,197,94,0.15)',   border: 'rgba(34,197,94,0.4)',   color: '#86efac', icon: '👤' },
+  Spam:       { bg: 'rgba(107,114,128,0.15)', border: 'rgba(107,114,128,0.4)', color: '#d1d5db', icon: '🗑' },
+  Finance:    { bg: 'rgba(168,85,247,0.15)',  border: 'rgba(168,85,247,0.4)',  color: '#d8b4fe', icon: '💰' },
+  Social:     { bg: 'rgba(236,72,153,0.15)',  border: 'rgba(236,72,153,0.4)',  color: '#f9a8d4', icon: '🌐' },
 }
 
 export default function CategoryBadge({ category }) {
-  const { cls, icon } = config[category] || { cls: 'bg-gray-500/20 text-gray-400 border-gray-500/30', icon: '📧' }
+  const cfg = config[category] || { bg: 'rgba(107,114,128,0.15)', border: 'rgba(107,114,128,0.4)', color: '#d1d5db', icon: '📧' }
   return (
-    <span className={`text-xs px-2 py-0.5 rounded-full border font-medium inline-flex items-center gap-1 ${cls}`}>
-      <span className="text-[10px]">{icon}</span>{category}
+    <span style={{
+      background: cfg.bg,
+      border: `1px solid ${cfg.border}`,
+      color: cfg.color,
+      borderRadius: '999px',
+      padding: '2px 10px',
+      fontSize: '11px',
+      fontWeight: 600,
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '4px',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    }}>
+      <span style={{ fontSize: '10px' }}>{cfg.icon}</span>{category}
     </span>
   )
 }
