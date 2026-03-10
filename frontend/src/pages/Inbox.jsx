@@ -32,7 +32,7 @@ export default function Inbox() {
   const urgentCount = emails.filter((e) => e.urgent).length
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #0a0a14 0%, #0d0d1f 50%, #0a0a14 100%)' }}>
+    <div className="min-h-screen bg-gray-900">
       <Navbar emailCount={emails.length} provider={provider} />
 
       <div className="max-w-3xl mx-auto px-4 py-6">
@@ -41,16 +41,15 @@ export default function Inbox() {
         {!loading && emails.length > 0 && (
           <div className="grid grid-cols-4 gap-3 mb-6">
             {[
-              { label: 'Total',    value: emails.length,                                      from: 'from-indigo-600',  to: 'to-violet-600',  shadow: 'shadow-indigo-500/20' },
-              { label: 'Urgent',   value: urgentCount,                                        from: 'from-red-500',     to: 'to-rose-600',    shadow: 'shadow-red-500/20' },
-              { label: 'Work',     value: emails.filter(e => e.category === 'Work').length,   from: 'from-blue-500',    to: 'to-cyan-600',    shadow: 'shadow-blue-500/20' },
-              { label: 'Personal', value: emails.filter(e => e.category === 'Personal').length, from: 'from-emerald-500', to: 'to-teal-600', shadow: 'shadow-emerald-500/20' },
+              { label: 'Total',    value: emails.length,                                        color: 'bg-indigo-600' },
+              { label: 'Urgent',   value: urgentCount,                                          color: 'bg-red-600' },
+              { label: 'Work',     value: emails.filter(e => e.category === 'Work').length,     color: 'bg-blue-600' },
+              { label: 'Personal', value: emails.filter(e => e.category === 'Personal').length, color: 'bg-emerald-600' },
             ].map((s) => (
-              <div key={s.label} className={`relative overflow-hidden rounded-2xl p-4 text-center shadow-lg ${s.shadow} border border-white/10`}
-                style={{ background: 'rgba(255,255,255,0.08)' }}>
-                <div className={`absolute inset-0 bg-gradient-to-br ${s.from} ${s.to} opacity-10`} />
-                <p className="text-3xl font-black text-white relative z-10">{s.value}</p>
-                <p className="text-xs text-white mt-0.5 relative z-10 font-medium">{s.label}</p>
+              <div key={s.label} className="bg-gray-800 rounded-2xl p-4 text-center border border-gray-700">
+                <div className={`w-2 h-2 ${s.color} rounded-full mx-auto mb-2`} />
+                <p className="text-3xl font-black text-white">{s.value}</p>
+                <p className="text-xs text-gray-300 mt-0.5 font-medium">{s.label}</p>
               </div>
             ))}
           </div>
@@ -69,18 +68,16 @@ export default function Inbox() {
                 onClick={() => setFilter(cat)}
                 className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all flex items-center gap-1.5 ${
                   filter === cat
-                    ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                    : 'border-white/15 text-white hover:border-violet-500/50 hover:text-white'
+                    ? 'bg-indigo-600 border-indigo-600 text-white'
+                    : 'bg-gray-800 border-gray-600 text-gray-300 hover:border-indigo-500 hover:text-white'
                 }`}
               >
                 {cat}
-                {count > 0 && (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                    filter === cat ? 'bg-white/20 text-white' : 'bg-white/10 text-white'
-                  }`}>
-                    {count}
-                  </span>
-                )}
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
+                  filter === cat ? 'bg-white/20 text-white' : 'bg-gray-700 text-gray-300'
+                }`}>
+                  {count}
+                </span>
               </button>
             )
           })}
@@ -90,17 +87,17 @@ export default function Inbox() {
         {loading && (
           <div className="text-center py-24">
             <div className="relative w-16 h-16 mx-auto mb-6">
-              <div className="absolute inset-0 rounded-full border-2 border-indigo-500/20" />
+              <div className="absolute inset-0 rounded-full border-2 border-indigo-900" />
               <div className="absolute inset-0 rounded-full border-t-2 border-indigo-500 animate-spin" />
               <div className="absolute inset-0 flex items-center justify-center text-2xl">🧠</div>
             </div>
             <p className="text-white font-semibold text-lg">AI is processing your emails</p>
-            <p className="text-white text-sm mt-1">Categorizing · Flagging · Drafting replies</p>
+            <p className="text-gray-400 text-sm mt-1">Categorizing · Flagging · Drafting replies</p>
           </div>
         )}
 
         {error && (
-          <div className="bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl p-4 text-center">
+          <div className="bg-red-900/50 border border-red-700 text-red-300 rounded-xl p-4 text-center">
             {error}
           </div>
         )}
@@ -109,7 +106,7 @@ export default function Inbox() {
         {!loading && !error && (
           <div className="space-y-2">
             {filtered.length === 0 ? (
-              <div className="text-center py-16 text-white">
+              <div className="text-center py-16 text-gray-400">
                 <p className="text-4xl mb-3">📭</p>
                 <p>No emails in this category</p>
               </div>
